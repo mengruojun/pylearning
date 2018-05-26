@@ -17,7 +17,8 @@ def selectionSort(lyst):
         if minIndex != i:
             swap(lyst, minIndex, i)
         i += 1
+    return lyst
 
 
 if __name__ == '__main__':
-    print(selectionSort(list(range(99, 1))))
+    print(selectionSort(list(reversed(range(1, 99, 3)))))
