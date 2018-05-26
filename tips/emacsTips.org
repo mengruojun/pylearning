@@ -10,6 +10,7 @@
 | General | Delete blank lines around             | C-x C-o       |
 | General | Kill Regin                            | C-w           |
 | General | Shell                                 | M-x shell     |
+| General | open menu                             | F10           |
 |---------+---------------------------------------+---------------|
 | NeoTree | Ask Help                              | ?             |
 | NeoTree | New File                              | C-c C-n       |
@@ -33,14 +34,14 @@
 |         | elpy-multiedit-python-symbol-at-point | C-c C-e       |
 |         | selpy-format-code                     | C-c C-r f     |
 |         | elpy-refactor, call rope              | C-c C-r r     |
-|         |                                       |               |
+|         | Find File in Project                  | F7            |
 |         |                                       |               |
 |         |                                       |               |
 |         |                                       |               |
 |         |                                       |               |
 |---------+---------------------------------------+---------------|
-|         |                                       |               |
-|         |                                       |               |
+| magit   | C-c C-c     (with-editor-finish)      | C-c C-c       |
+|         | open Git dashboard                    | C-x g         |
 |---------+---------------------------------------+---------------|
 
 
