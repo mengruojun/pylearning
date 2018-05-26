@@ -18,5 +18,6 @@ def selectionSort(lyst):
             swap(lyst, minIndex, i)
         i += 1
 
+
 if __name__ == '__main__':
-    print(selectionSort(list(range(99,1,-2))))
+    print(selectionSort(list(range(99, 1))))

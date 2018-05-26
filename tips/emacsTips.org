@@ -1,0 +1,47 @@
+
+| Feature | Function                              | key           |
+|---------+---------------------------------------+---------------|
+| General | Next Buffer                           | C-x Right     |
+| General | Last Buffer                           | C-x Left      |
+| General | Open Menu                             | F10           |
+| General | Kill Buffer                           | C-x k bufname |
+| General | Select All                            | C-x h         |
+| General | Jump to line (command palette)        | M-g g         |
+| General | Delete blank lines around             | C-x C-o       |
+| General | Kill Regin                            | C-w           |
+| General | Shell                                 | M-x shell     |
+|---------+---------------------------------------+---------------|
+| NeoTree | Ask Help                              | ?             |
+| NeoTree | New File                              | C-c C-n       |
+| NeoTree | neotree-refresh                       | g             |
+| NeoTree | toggle Hidden files                   | H             |
+| NeoTree | delete dir or file                    | C-c C-d       |
+|         |                                       |               |
+|         |                                       |               |
+|         |                                       |               |
+|---------+---------------------------------------+---------------|
+| OrgMode | kill cell                             | C-c Space     |
+| OrgMode | insert horizental line                | C-c -         |
+|---------+---------------------------------------+---------------|
+| Python  | Completion                            | C-M-i         |
+|         | elpy-goto-definition                  | M-.           |
+|         | elpy-goto-definition-other-window     | C-x 4 M-.     |
+|         | Go back where M-.                     | M-*           |
+|         | elpy-shell-switch-to-shell            | C-c C-z       |
+|         | elpy-shell-send-statement             | C-c C-y e     |
+|         | elpy-test                             | C-c C-t       |
+|         | elpy-multiedit-python-symbol-at-point | C-c C-e       |
+|         | selpy-format-code                     | C-c C-r f     |
+|         | elpy-refactor, call rope              | C-c C-r r     |
+|         |                                       |               |
+|         |                                       |               |
+|         |                                       |               |
+|         |                                       |               |
+|         |                                       |               |
+|---------+---------------------------------------+---------------|
+|         |                                       |               |
+|         |                                       |               |
+|---------+---------------------------------------+---------------|
+
+
+
