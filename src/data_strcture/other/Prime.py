@@ -13,7 +13,6 @@ import sys
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
 
-
 def get_prime_number(cap=100):
 
 
