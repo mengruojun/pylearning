@@ -52,8 +52,8 @@ if __name__ == '__main__':
         limit = 100
     else:
         limit = int(sys.argv[1])
-
+    logging.info("Max Prime in rang is " + str(get_prime_number(limit)))
     end = time.time()
     logging.info("End")
     logging.info("Finished in " + str(end - start) + " Seconds")
-    logging.info("Max Prime in rang is " + str(get_prime_number(limit)))
+
