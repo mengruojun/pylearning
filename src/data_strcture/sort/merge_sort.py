@@ -36,7 +36,7 @@ def merge_sort(lyst):
 
 def main():
     u_list = input("input a list of init\n")
-    u_list = list(map(int, u_list.split(",")))
+    u_list = list(map(float, u_list.split(",")))
     print(merge_sort(u_list))
 
 

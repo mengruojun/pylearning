@@ -14,6 +14,11 @@ class TestSortImplementations(unittest.TestCase):
         self.assertListEqual([-100, 0, 0, 0, 1, 2, 3, 4, 5, 99],
                              merge_sort.merge_sort([99, -100, 0, 0, 0, 1, 2, 3, 4, 5]))
 
+    def test_HeapSort(self):
+        self.assertListEqual([1, 2, 3, 4, 5], heap_sort.heap_sort([5, 4, 3, 2, 1]))
+        self.assertListEqual([-100, 0, 0, 0, 1, 2, 3, 4, 5, 99],
+                             heap_sort.heap_sort([99, -100, 0, 0, 0, 1, 2, 3, 4, 5]))
+
     def test_split(self):
         s = 'hello world'
         self.assertEqual(s.split(), ['hello', 'world'])
