@@ -11,7 +11,7 @@ def selectionSort(lyst):
         minIndex = i
         j = i + 1
         while j < len(lyst):
-            if (lyst[j] < lyst[minIndex]):
+            if lyst[j] < lyst[minIndex]:
                 minIndex = j
             j += 1
         if minIndex != i:

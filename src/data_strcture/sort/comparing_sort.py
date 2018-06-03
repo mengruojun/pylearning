@@ -4,9 +4,7 @@
 import random
 import logging
 import time
-import sys
 import tableprint as tp
-import numpy as np
 
 from data_strcture.sort import *
 
@@ -30,7 +28,7 @@ def performance_test(sort_impl, N):
 if __name__ == '__main__':
     length = [10000, 100000, 1000000]
     sort = [quick_sort.quick_sort, merge_sort.merge_sort, heap_sort.heap_sort]
-    hearers = [""]
+    hearers = ["testtesttesttesttesttesttesttest"]
     for s in sort:
         hearers.append(s.__name__)
     data = []
