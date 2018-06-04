@@ -1,5 +1,5 @@
 import unittest
-from data_strcture.sort import *
+from data_stucture.sort import *
 
 
 class TestSortImplementations(unittest.TestCase):

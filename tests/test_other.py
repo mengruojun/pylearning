@@ -1,5 +1,5 @@
 import unittest
-from data_strcture.other import *
+from data_stucture.other import *
 
 
 class TestOther(unittest.TestCase):
