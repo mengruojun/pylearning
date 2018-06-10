@@ -6,7 +6,7 @@ import logging
 import time
 import tableprint as tp
 
-from data_strcture.sort import *
+from data_structure.sort import *
 
 
 logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(message)s')

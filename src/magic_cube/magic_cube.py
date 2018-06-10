@@ -1,3 +1,13 @@
+import Lib.copy as copy
+import random
+import logging
+import time
+import math
+
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+
+
 """
 File magic_cube.py
 Author: Ruojun Meng
@@ -134,16 +144,163 @@ class MagicCube(object):
 
     def print_state(self):
         for side in self.state:
-            print(side + ":" + str(self.state[side]))
+            logging.info(side + ":" + str(self.state[side]))
 
 
+    def simulate_annealing(self):
+        solution = []
+        T0 = 10
+        d= 1-0.001
+        Tk=1e-3
+        T=T0
+
+        value = self.evaluate()
+
+        i=1
+
+        while T>Tk:
+            logging.info("Run times: " + str(i))
+            i += 1
+
+            oper = self.generate_ops()
+            temp_mc = MagicCube(copy.deepcopy(self.state))
+            [real_oper, new_value] = temp_mc.run_oper(oper, value)
+
+            if (new_value < value) or (random.random() < math.exp((value - new_value)/ T)) :
+                logging.info("accept the new operations. new value is" + str(new_value))
+                self.run_oper(real_oper, value)
+                solution.append(real_oper)
+
+                temp_value = self.evaluate()
+                assert temp_value == new_value
+
+                value = new_value
+                logging.info("value is: " + str(value))
+                logging.info(solution)
+                self.print_state()
+
+            T *= d
+
+        logging.info("Last state:")
+        self.print_state()
+
+        return solution
+
+
+    def search_solution(self):
+        solution = []
+        value = self.evaluate()
+        print("initial value: " + str(value))
+        while value > 0:
+            oper = self.generate_ops()
+            temp_mc = MagicCube(copy.deepcopy(self.state))
+            [real_oper, new_value] = temp_mc.run_oper(oper, value)
+            if new_value < value :
+                self.run_oper(real_oper, value)
+                solution.append(real_oper)
+
+                temp_value = self.evaluate()
+                assert temp_value == new_value
+
+                value = new_value
+                logging.info("value downgrade: " + str(value))
+                logging.info(solution)
+                self.print_state()
+                print()
+                print()
+
+            #else: # accept the new_value by a rate
+
+        logging.info("Last state:")
+        self.print_state()
+
+        return solution
+
+    """
+        run oper sequence, one step by one step
+        For each step, evaluate the value. If the value is less than old_value, return it and its real oper 
+        
+    """
+
+    def run_oper(self, oper, old_value):
+        track = []
+        real_oper =[]
+        for o in oper:
+            real_oper.append(o)
+            self.run_one_oper(o)
+            value = self.evaluate()
+            track.append([copy.deepcopy(real_oper), value])
+            if value < old_value:
+                break
+
+        return track[-1]
+
+    def run_one_oper(self, oper):
+        getattr(self, oper)()
+
+    @staticmethod
+    def generate_ops():
+        steps = 20
+        operation_set = ['f', 'l', 'u', 'r', 'b', 'd', 'f_a', 'l_a', 'u_a', 'r_a', 'b_a', 'd_a']
+        ops = []
+        for i in range(0, steps):
+            ops.append(operation_set[random.randint(0, 11)])
+        return ops
 
     """
     evaluate the value of the state
     """
 
-    def value(self):
-        pass
+    def evaluate(self):
+        value = 20
+
+        # upper level
+        if self.F[1] == self.F[5] and self.U[7] == self.U[5] and self.L[3] == self.L[5]:
+            value -= 1
+        if self.F[2] == self.F[5] and self.U[8] == self.U[5]:
+            value -= 1
+        if self.F[3] == self.F[5] and self.U[9] == self.U[5] and self.R[1] == self.R[5]:
+            value -= 1
+        if self.U[4] == self.U[5] and self.L[2] == self.L[5]:
+            value -= 1
+        if self.U[6] == self.U[5] and self.R[2] == self.R[5]:
+            value -= 1
+        if self.U[1] == self.U[5] and self.L[1] == self.L[5] and self.B[3] == self.B[5]:
+            value -= 1
+        if self.U[2] == self.U[5] and self.B[2] == self.B[5]:
+            value -= 1
+        if self.U[3] == self.U[5] and self.R[3] == self.R[5] and self.B[1] == self.B[5]:
+            value -= 1
+
+        # mid level
+        if self.F[4] == self.F[5] and self.L[6] == self.L[5]:
+            value -= 1
+        if self.F[6] == self.F[5] and self.R[4] == self.R[5]:
+            value -= 1
+        if self.L[4] == self.L[5] and self.B[6] == self.B[5]:
+            value -= 1
+        if self.B[4] == self.B[5] and self.R[6] == self.R[5]:
+            value -= 1
+
+        # bottom level
+        if self.F[7] == self.F[5] and self.D[1] == self.D[5] and self.L[9] == self.L[5]:
+            value -= 1
+        if self.F[8] == self.F[5] and self.D[2] == self.D[5]:
+            value -= 1
+        if self.F[9] == self.F[5] and self.D[3] == self.D[5] and self.R[7] == self.R[5]:
+            value -= 1
+        if self.D[4] == self.D[5] and self.L[8] == self.L[5]:
+            value -= 1
+        if self.D[6] == self.D[5] and self.R[8] == self.R[5]:
+            value -= 1
+        if self.D[7] == self.D[5] and self.L[7] == self.L[5] and self.B[9] == self.B[5]:
+            value -= 1
+        if self.D[8] == self.D[5] and self.B[8] == self.B[5]:
+            value -= 1
+        if self.D[9] == self.D[5] and self.R[9] == self.R[5] and self.B[7] == self.B[5]:
+            value -= 1
+
+        return value
 
 
 if __name__ == '__main__':
@@ -155,22 +312,8 @@ if __name__ == '__main__':
         'B': [' ', 'b', 'w', 'o', 'b', 'b', 'y', 'y', 'g', 'g'],
         'D': [' ', 'o', 'o', 'w', 'w', 'y', 'w', 'o', 'r', 'g']
     })
+    logging.info(time.time())
+    #print(test.search_solution())
+    logging.info(test.simulate_annealing())
+    logging.info(time.time())
 
-    test.print_state()
-
-    test.f()
-    print("f()1")
-
-    test.print_state()
-
-    print("f()2")
-    test.f()
-    test.print_state()
-
-    print("f()3")
-    test.f()
-    test.print_state()
-
-    print("f()4")
-    test.f()
-    test.print_state()

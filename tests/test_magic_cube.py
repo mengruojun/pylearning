@@ -15,6 +15,20 @@ class TestSortImplementations(unittest.TestCase):
             'D': [' ', 'o', 'o', 'w', 'w', 'y', 'w', 'o', 'r', 'g']
         })
 
+    def test_evaluate(self):
+        temp_mc = mc.MagicCube({
+            'F': [' ', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f'],
+            'U': [' ', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u'],
+            'L': [' ', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+            'R': [' ', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+            'B': [' ', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
+            'D': [' ', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd']
+        })
+        print(temp_mc.evaluate())
+        self.assertEqual(temp_mc.evaluate(), 20)
+        temp_mc.f()
+        print(temp_mc.evaluate())
+
     def test_f(self):
         self.mc.f()
         mc_f = {'F': [' ', 'g', 'g', 'y', 'b', 'g', 'r', 'b', 'g', 'g'],
@@ -25,6 +39,7 @@ class TestSortImplementations(unittest.TestCase):
                 'D': [' ', 'r', 'o', 'r', 'w', 'y', 'w', 'o', 'r', 'g']}
 
         self.assertDictEqual(mc_f, self.mc.state)
+        self.assertTrue(self.mc.evaluate(), 1)
 
     def test_f_a(self):
         old_mc = copy.deepcopy(self.mc.state)
@@ -122,6 +137,17 @@ class TestSortImplementations(unittest.TestCase):
         self.mc.d_a()
         self.mc.d()
         self.assertDictEqual(old_mc, self.mc.state)
+
+    def test_f_getattr(self):
+        self.mc.run_one_oper('f')
+        mc_f = {'F': [' ', 'g', 'g', 'y', 'b', 'g', 'r', 'b', 'g', 'g'],
+                'U': [' ', 'b', 'g', 'r', 'r', 'w', 'y', 'w', 'y', 'b'],
+                'L': [' ', 'w', 'b', 'o', 'r', 'o', 'o', 'y', 'o', 'w'],
+                'R': [' ', 'o', 'o', 'y', 'w', 'r', 'y', 'w', 'b', 'r'],
+                'B': [' ', 'b', 'w', 'o', 'b', 'b', 'y', 'y', 'g', 'g'],
+                'D': [' ', 'r', 'o', 'r', 'w', 'y', 'w', 'o', 'r', 'g']}
+
+        self.assertDictEqual(mc_f, self.mc.state)
 
 
 if __name__ == '__main__':
