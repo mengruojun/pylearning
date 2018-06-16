@@ -1,4 +1,4 @@
-import Lib.copy as copy
+import copy as copy
 import random
 import logging
 import time
@@ -50,11 +50,9 @@ class MagicCube(object):
 
     """
     Turn Operations
-    
     F,L,U,R,B,D  they are clockwise
     Fa,La,Ua,Ra,Ba,Da  they are anti-clockwise
     Fa=3*F and etc.
-    
     """
 
     def f(self):
@@ -146,19 +144,18 @@ class MagicCube(object):
         for side in self.state:
             logging.info(side + ":" + str(self.state[side]))
 
-
     def simulate_annealing(self):
         solution = []
         T0 = 10
-        d= 1-0.001
-        Tk=1e-3
-        T=T0
+        d = 1 - 0.001
+        Tk = 1e-3
+        T = T0
 
         value = self.evaluate()
 
-        i=1
+        i = 1
 
-        while T>Tk:
+        while T > Tk:
             logging.info("Run times: " + str(i))
             i += 1
 
@@ -166,8 +163,9 @@ class MagicCube(object):
             temp_mc = MagicCube(copy.deepcopy(self.state))
             [real_oper, new_value] = temp_mc.run_oper(oper, value)
 
-            if (new_value < value) or (random.random() < math.exp((value - new_value)/ T)) :
-                logging.info("accept the new operations. new value is" + str(new_value))
+            if (new_value < value) or (random.random() < math.exp((value - new_value) / T)):
+                logging.info(
+                    "accept the new operations. new value is" + str(new_value))
                 self.run_oper(real_oper, value)
                 solution.append(real_oper)
 
@@ -186,7 +184,6 @@ class MagicCube(object):
 
         return solution
 
-
     def search_solution(self):
         solution = []
         value = self.evaluate()
@@ -195,7 +192,7 @@ class MagicCube(object):
             oper = self.generate_ops()
             temp_mc = MagicCube(copy.deepcopy(self.state))
             [real_oper, new_value] = temp_mc.run_oper(oper, value)
-            if new_value < value :
+            if new_value < value:
                 self.run_oper(real_oper, value)
                 solution.append(real_oper)
 
@@ -209,7 +206,7 @@ class MagicCube(object):
                 print()
                 print()
 
-            #else: # accept the new_value by a rate
+            # else: # accept the new_value by a rate
 
         logging.info("Last state:")
         self.print_state()
@@ -224,7 +221,7 @@ class MagicCube(object):
 
     def run_oper(self, oper, old_value):
         track = []
-        real_oper =[]
+        real_oper = []
         for o in oper:
             real_oper.append(o)
             self.run_one_oper(o)
@@ -241,9 +238,11 @@ class MagicCube(object):
     @staticmethod
     def generate_ops():
         steps = 20
-        operation_set = ['f', 'l', 'u', 'r', 'b', 'd', 'f_a', 'l_a', 'u_a', 'r_a', 'b_a', 'd_a']
+        operation_set = ['f', 'l', 'u', 'r', 'b', 'd',
+                         'f_a', 'l_a', 'u_a', 'r_a', 'b_a', 'd_a']
         ops = []
-        for i in range(0, steps):
+        while steps > 0:
+            steps -= 1
             ops.append(operation_set[random.randint(0, 11)])
         return ops
 
@@ -313,7 +312,6 @@ if __name__ == '__main__':
         'D': [' ', 'o', 'o', 'w', 'w', 'y', 'w', 'o', 'r', 'g']
     })
     logging.info(time.time())
-    #print(test.search_solution())
+    # print(test.search_solution())
     logging.info(test.simulate_annealing())
     logging.info(time.time())
-

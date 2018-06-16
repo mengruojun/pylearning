@@ -1,8 +1,10 @@
 import unittest
-from data_structure.sort import *
+import src.data_structure.sort.quick_sort as quick_sort
+import src.data_structure.sort.merge_sort as merge_sort
+import src.data_structure.sort.heap_sort as heap_sort
 
 
-class TestSortImplementations(unittest.TestCase):
+class TestSortImplementations(unittest.TestCase): 
 
     def test_QuickSort(self):
         self.assertListEqual([1, 2, 3, 4, 5], quick_sort.quick_sort([5, 4, 3, 2, 1]))

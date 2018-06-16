@@ -1,10 +1,10 @@
 import unittest
-import Lib.copy as copy
-from magic_cube import magic_cube as mc
+import copy as copy
+from src.magic_cube import magic_cube as mc
 
 
 class TestSortImplementations(unittest.TestCase):
-
+ 
     def setUp(self):
         self.mc = mc.MagicCube({
             'F': [' ', 'y', 'r', 'g', 'g', 'g', 'g', 'g', 'b', 'b'],
@@ -14,7 +14,7 @@ class TestSortImplementations(unittest.TestCase):
             'B': [' ', 'b', 'w', 'o', 'b', 'b', 'y', 'y', 'g', 'g'],
             'D': [' ', 'o', 'o', 'w', 'w', 'y', 'w', 'o', 'r', 'g']
         })
-
+    
     def test_evaluate(self):
         temp_mc = mc.MagicCube({
             'F': [' ', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f'],
@@ -25,7 +25,7 @@ class TestSortImplementations(unittest.TestCase):
             'D': [' ', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd']
         })
         print(temp_mc.evaluate())
-        self.assertEqual(temp_mc.evaluate(), 20)
+        self.assertEqual(temp_mc.evaluate(), 0)
         temp_mc.f()
         print(temp_mc.evaluate())
 
@@ -67,7 +67,7 @@ class TestSortImplementations(unittest.TestCase):
 
     def test_u(self):
         self.mc.u()
-        mc_expected ={
+        mc_expected = {
             'F': [' ', 'r', 'o', 'y', 'g', 'g', 'g', 'g', 'b', 'b'],
             'U': [' ', 'o', 'r', 'b', 'w', 'w', 'g', 'w', 'y', 'r'],
             'L': [' ', 'y', 'r', 'g', 'r', 'o', 'y', 'y', 'o', 'w'],
@@ -83,7 +83,7 @@ class TestSortImplementations(unittest.TestCase):
         self.mc.u()
         self.assertDictEqual(old_mc, self.mc.state)
 
-    #R,B,D
+    # R,B,D
     def test_r(self):
         self.mc.r()
         mc_expected = {

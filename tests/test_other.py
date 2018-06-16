@@ -1,5 +1,6 @@
 import unittest
-from data_structure.other import *
+from src.data_structure.other import other
+
 
 class TestOther(unittest.TestCase):
     def test_slowFib(self):
