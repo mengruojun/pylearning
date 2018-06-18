@@ -213,13 +213,15 @@ class MagicCube(object):
 
         return solution
 
-    """
-        run oper sequence, one step by one step
-        For each step, evaluate the value. If the value is less than old_value, return it and its real oper 
-        
-    """
+
 
     def run_oper(self, oper, old_value):
+        """
+            run oper sequence, one step by one step
+            For each step, evaluate the value. If the value is less than old_value, return it and its real oper
+
+        """
+
         track = []
         real_oper = []
         for o in oper:
@@ -232,12 +234,26 @@ class MagicCube(object):
 
         return track[-1]
 
+    def run_sequence(self, oper):
+        """
+            run oper sequence, one step by one step
+        """
+
+        track = []
+        real_oper = []
+        for o in oper:
+            real_oper.append(o)
+            self.run_one_oper(o)
+            value = self.evaluate()
+            track.append([copy.deepcopy(real_oper), value])
+
+        return track[-1]
+
     def run_one_oper(self, oper):
         getattr(self, oper)()
 
     @staticmethod
-    def generate_ops():
-        steps = 20
+    def generate_ops(steps=20):
         operation_set = ['f', 'l', 'u', 'r', 'b', 'd',
                          'f_a', 'l_a', 'u_a', 'r_a', 'b_a', 'd_a']
         ops = []
@@ -248,6 +264,7 @@ class MagicCube(object):
 
     """
     evaluate the value of the state
+    This evaluation function seemly need to be included into individual solution classes
     """
 
     def evaluate(self):
@@ -312,6 +329,6 @@ if __name__ == '__main__':
         'D': [' ', 'o', 'o', 'w', 'w', 'y', 'w', 'o', 'r', 'g']
     })
     logging.info(time.time())
-    # print(test.search_solution())
-    logging.info(test.simulate_annealing())
+    print(test.search_solution())
+    #logging.info(test.simulate_annealing())
     logging.info(time.time())
