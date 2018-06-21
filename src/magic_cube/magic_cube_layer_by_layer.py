@@ -2,6 +2,7 @@ import copy as copy
 import logging
 import time
 import random
+import math
 from magic_cube import MagicCube
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
@@ -93,14 +94,20 @@ def search_solution_layer_by_layer(initial_status):
     solution = []
     value = evaluate(initial_status)
     print("initial value: " + str(value))
+    tmp_opers= []  # this is for avoiding duplicated searching
     while value > 0:
 
         steps = random.randint(1, 20)
         oper = initial_status.generate_ops(steps)
+        if oper not in tmp_opers:
+            tmp_opers.append(oper)
+        else:
+            continue
 
         temp_mc = MagicCube(copy.deepcopy(initial_status.state))
         [real_oper, new_value] = run_oper(temp_mc, oper, value)
-        if new_value > value:
+        if new_value > value or (new_value>4440000 and (random.random() < 0.1)):
+            tmp_opers.clear()
             run_oper(initial_status,real_oper, value)
             solution.append(real_oper)
 
